@@ -1,0 +1,37 @@
+source 'https://rubygems.org'
+
+ruby '3.0.5'
+
+# Declare your gem's dependencies in acclaim_stats.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
+gemspec
+
+# Declare any dependencies that are still in development here instead of in
+# your gemspec. These might include edge Rails or gems from your path or
+# Git. Remember to move these dependencies to your gemspec before releasing
+# your gem to rubygems.org.
+
+gem 'bootsnap', require: false
+
+# While this gem doesn't directly use delayed_job, the JobSupport mixins (Chunkable and Resumable),
+# do rely on hooks specific to delayed_jobs, and tests written for them similarly rely on that
+# ActiveJob provider
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+
+source 'https://rubygems.pkg.github.com/YourAcclaim' do
+  # Request signer gem - currently hosted on Github
+  gem 'request_signer', '0.2.0'
+  gem 'acclaim-maishin', '0.2.1', groups: %i(development test)
+end
+
+
+group :development do
+  gem 'listen'
+end
+
+group :test do
+  gem 'minitest-reporters', require: false
+  gem 'redis', require: false
+end
